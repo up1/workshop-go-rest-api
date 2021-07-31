@@ -1,0 +1,12 @@
+version: "3"
+services:
+  db:
+    image: mongo:4.4.3
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/seed.js:/docker-entrypoint-initdb.d/1.js
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: demo
