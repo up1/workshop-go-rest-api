@@ -15,3 +15,5 @@
   * [gin-metrics](https://github.com/penglongli/gin-metrics)
   * [Prometheus](https://prometheus.io/)
   * [Grafana](https://grafana.com/)
+* Authentication and Authorization
+  * JWT + Gin middleware
