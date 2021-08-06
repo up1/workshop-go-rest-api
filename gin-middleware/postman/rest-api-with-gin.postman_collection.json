@@ -8,12 +8,23 @@
 		{
 			"name": "List all users",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImRlbW9AZGVtby5jb20iLCJleHAiOjE2MjgzNTIxNzYsImlzcyI6IkF1dGhTZXJ2aWNlIn0.rLcu7TOzotQVJHsk-k4ZmCi9X2jPWAOq8UfS2-WE8WU",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
 						"key": "authorization",
 						"value": "demo",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"url": {
