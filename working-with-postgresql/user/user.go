@@ -18,11 +18,13 @@ type UserRequest struct {
 }
 
 func handleGetUsers(c *gin.Context) {
+	// Get data from database
 	c.JSON(http.StatusOK, Users{})
 }
 
 func handleGetUserByID(c *gin.Context) {
 	id := c.Param("id")
+	// Get data from database
 	c.JSON(http.StatusOK, User{Id: id})
 }
 
