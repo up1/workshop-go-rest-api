@@ -4,11 +4,8 @@ import (
 	"database/sql"
 )
 
-// Global variable
-var DB *sql.DB
-
-func GetAllUsers() (Users, error) {
-	rows, err := DB.Query("SELECT * FROM users")
+func GetAllUsers(db *sql.DB) (Users, error) {
+	rows, err := db.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}

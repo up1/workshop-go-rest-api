@@ -1,15 +1,15 @@
 package user
 
 import (
+	"demo/db"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 // NewUserAPI to create the router of user
-func NewUserAPI(app *gin.RouterGroup) {
-	app.GET("/user", handleGetUsers)
-	app.GET("/user/:id", handleGetUserByID)
+func NewUserAPI(app *gin.RouterGroup, resource *db.Resource) {
+	app.GET("/user", handleGetUsers(resource))
 }
 
 type UserRequest struct {
@@ -17,14 +17,11 @@ type UserRequest struct {
 	Age  int    `json:"age"`
 }
 
-func handleGetUsers(c *gin.Context) {
-	// Get data from database
-	users, _ := GetAllUsers()
-	c.JSON(http.StatusOK, users)
-}
-
-func handleGetUserByID(c *gin.Context) {
-	id := c.Param("id")
-	// Get data from database
-	c.JSON(http.StatusOK, User{Id: id})
+// Using closure
+func handleGetUsers(resource *db.Resource) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		// Get data from database
+		users, _ := GetAllUsers(resource.DB)
+		c.JSON(http.StatusOK, users)
+	}
 }
