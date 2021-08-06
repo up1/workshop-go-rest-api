@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func authenticateWithJwt() gin.HandlerFunc {
+func AuthenticateWithJwt() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		clientToken := c.Request.Header.Get("Authorization")
 		if clientToken == "" {
@@ -26,7 +26,7 @@ func authenticateWithJwt() gin.HandlerFunc {
 			return
 		}
 
-		// Move to config or environment variables
+		// TODO :: Move to config or environment variables
 		jwtWrapper := auth.JwtWrapper{
 			SecretKey: "xxxsecretkey",
 			Issuer:    "AuthService",

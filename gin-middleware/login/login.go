@@ -37,8 +37,10 @@ func handleLogin() func(c *gin.Context) {
 		}
 		// Success
 		user.Email = payload.Email
+
+		// TODO :: Move to config or environment variables
 		jwtWrapper := auth.JwtWrapper{
-			SecretKey:       "verysecretkey",
+			SecretKey:       "xxxsecretkey",
 			Issuer:          "AuthService",
 			ExpirationHours: 24,
 		}
