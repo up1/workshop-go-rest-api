@@ -10,7 +10,7 @@ import (
 )
 
 func StartServer() {
-	// gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 	// Create database connection
 	resource := db.NewResource()
 

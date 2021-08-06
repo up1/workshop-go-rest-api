@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
+	"time"
 )
 
 type Resource struct {
@@ -20,6 +21,9 @@ func createDatabaseConnection() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(25)
+	db.SetConnMaxLifetime(5 * time.Minute)
 	// Ping to database
 	err = db.Ping()
 	if err != nil {
