@@ -15,7 +15,7 @@ func StartServer() {
 	router.Use(gin.Recovery())
 
 	// ===== Custom middlewares
-	router.Use(middleware.AuthRequired())
+	// router.Use(middleware.AuthRequired())
 	router.NoRoute(middleware.NoRouteHandler())
 	router.NoMethod(middleware.NoMethodHandler())
 

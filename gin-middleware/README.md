@@ -13,6 +13,6 @@ $go mod tidy
 $go run cmd/main.go
 ```
 List of APIs
-* http://localhost:8080/user
-* http://localhost:8080/user/<id>
+* http://localhost:8080/api/v1/user
+* http://localhost:8080/api/v1user/<id>
 * http://localhost:8080/metrics

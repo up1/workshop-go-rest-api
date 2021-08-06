@@ -1,6 +1,7 @@
 package user
 
 import (
+	"demo/middleware"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,8 +9,8 @@ import (
 
 // NewUserAPI to create the router of user
 func NewUserAPI(app *gin.RouterGroup) {
-	app.GET("/user", handleGetUsers())
-	app.GET("/user/:id", handleGetUserByID())
+	app.GET("/user", middleware.AuthRequired(), handleGetUsers())
+	app.GET("/user/:id", middleware.AuthRequired(), handleGetUserByID())
 }
 
 type UserRequest struct {
@@ -28,7 +29,6 @@ func handleGetUserByID() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		code := http.StatusOK
 		id := c.Param("id")
-		
 		c.JSON(code, User{Id: id})
 	}
 }
