@@ -1,6 +1,7 @@
 package demo
 
 import (
+	"demo/login"
 	"demo/middleware"
 	"demo/user"
 
@@ -11,11 +12,10 @@ import (
 func StartServer() {
 	router := gin.New()
 
-	// ===== Middlewares
+	// ===== Global Middlewares
 	router.Use(gin.Recovery())
 
 	// ===== Custom middlewares
-	// router.Use(middleware.AuthRequired())
 	router.NoRoute(middleware.NoRouteHandler())
 	router.NoMethod(middleware.NoMethodHandler())
 
@@ -28,18 +28,16 @@ func StartServer() {
 	m.SetDuration([]float64{0.1, 0.3, 1.2, 5, 10})
 	m.Use(router)
 
-	// ===== Prefix of all routes
-	publicRoute := router.Group("/api/v1")
-
-	// ===== Initial resource from MongoDB
-	// resource, err := db.CreateResource()
-	// if err != nil {
-	// 	logrus.Error(err)
-	// }
-	// defer resource.Close()
+	// ===== Protected APIs
+	protectedRoute := router.Group("/api/v1")
+	protectedRoute.Use(middleware.AuthRequired())
 
 	// ===== Add routes of users
-	user.NewUserAPI(publicRoute)
+	user.NewUserAPI(protectedRoute)
+
+	// ===== Public APIs
+	publicRoute := router.Group("/api/v1")
+	login.NewLoginAPI(publicRoute)
 
 	// ===== Start server
 	router.Run(":8080")
