@@ -30,8 +30,8 @@ func StartServer() {
 
 	// ===== Protected APIs
 	protectedRoute := router.Group("/api/v1")
-	// protectedRoute.Use(middleware.AuthRequired())
-	protectedRoute.Use(middleware.AuthenticateWithJwt())
+	protectedRoute.Use(middleware.AuthRequired())
+	// protectedRoute.Use(middleware.AuthenticateWithJwt())
 
 	// ===== Add routes of users
 	user.NewUserAPI(protectedRoute)
