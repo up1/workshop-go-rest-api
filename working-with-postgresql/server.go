@@ -25,7 +25,7 @@ func StartServer() {
 func createDatabaseConnection() {
 	var err error
 	// Move to config file or environment variables
-	user.DB, err = sql.Open("postgres", "postgres://user:pass@localhost/demo")
+	user.DB, err = sql.Open("postgres", "postgres://user:pass@localhost/demo?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}

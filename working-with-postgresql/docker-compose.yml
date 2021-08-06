@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=data
+      - POSTGRES_DB=demo
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U data"]
       interval: 10s
