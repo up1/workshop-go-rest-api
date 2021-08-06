@@ -10,11 +10,11 @@ type Resource struct {
 }
 
 func NewResource() *Resource {
-	db:= createDatabaseConnection()
+	db := createDatabaseConnection()
 	return &Resource{DB: db}
 }
 
-func createDatabaseConnection() *sql.DB{
+func createDatabaseConnection() *sql.DB {
 	// Move to config file or environment variables
 	db, err := sql.Open("postgres", "postgres://user:pass@localhost/demo?sslmode=disable")
 	if err != nil {
