@@ -15,17 +15,19 @@ type Resource struct {
 
 func main() {
 	// Database connection
-	r := Resource{ db : createDatabaseConnection() }
+	db := createDatabaseConnection()
 
 	router := gin.New()
 	route := router.Group("/api/v1")
-	route.GET("/user", r.handleGetUsers)
+	route.GET("/user", handleGetUsers(db))
 	router.Run(":8080")
 }
-
-func (r *Resource)handleGetUsers(c *gin.Context) {
-	users, _ := getAllUsers(r.db)
-	c.JSON(http.StatusOK, users)
+// Closure
+func handleGetUsers(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		users, _ := getAllUsers(db)
+		c.JSON(http.StatusOK, users)
+	}
 }
 
 func createDatabaseConnection() *sql.DB {
