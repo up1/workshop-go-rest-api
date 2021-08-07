@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"github.com/penglongli/gin-metrics/ginmetrics"
 )
 
 func main() {
@@ -19,6 +20,13 @@ func main() {
 	router.HandleMethodNotAllowed = true
 	router.NoMethod(middlewares.NoMethodHandler()) // Bug !!
 	router.NoRoute(middlewares.NoRouteHandler())
+
+	// Metrics :: Prometheus format
+	m := ginmetrics.GetMonitor()
+	m.SetMetricPath("/metrics")
+	m.SetSlowTime(10)
+	m.SetDuration([]float64{0.1, 0.3, 1.2, 5, 10})
+	m.Use(router)
 
 	route := router.Group("/api/v1")
 	route.GET("/user", middlewares.AuthRequired(), handleGetUsers(db))
