@@ -16,11 +16,13 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Recovery())
+	router.HandleMethodNotAllowed = true
 	router.NoMethod(middlewares.NoMethodHandler()) // Bug !!
 	router.NoRoute(middlewares.NoRouteHandler())
 
 	route := router.Group("/api/v1")
 	route.GET("/user", middlewares.AuthRequired(), handleGetUsers(db))
+	
 	router.Run(":8080")
 }
 // Closure
