@@ -53,6 +53,8 @@ func AuthenticateWithJwt() gin.HandlerFunc {
 			return
 		}
 
+		// TODO :: Check token in database (SQL, NoSQL)
+
 		c.Set("email", claims.Email)
 		c.Next()
 	}
