@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"demo"
+	"demo/login"
 	"demo/middlewares"
 	"net/http"
 
@@ -30,9 +31,12 @@ func main() {
 
 	route := router.Group("/api/v1")
 	route.GET("/user", middlewares.AuthRequired(), handleGetUsers(db))
-	
+
+	login.NewLoginAPI(route)
+
 	router.Run(":8080")
 }
+
 // Closure
 func handleGetUsers(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
