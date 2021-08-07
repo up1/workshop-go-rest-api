@@ -6,7 +6,7 @@
   * PostgreSQL
   * [MongoDB](https://github.com/mongodb/mongo-go-driver)
   * [MS SQL Server](https://docs.microsoft.com/en-us/azure/azure-sql/database/connect-query-go)
-  * MySQL
+  * [MySQL](https://github.com/go-sql-driver/mysql)
   * Redis
 * Distributed tracing
   * [OpenTelemetry](https://opentelemetry.io/)
