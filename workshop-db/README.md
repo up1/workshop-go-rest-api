@@ -13,3 +13,8 @@ go mod tidy
 go run main.go
 ```
 
+Build Docker Image
+```
+docker image build -t demo-api .
+```
+
