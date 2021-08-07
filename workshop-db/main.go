@@ -9,21 +9,22 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Global variable
-var DB *sql.DB
+type Resource struct {
+	db *sql.DB
+}
 
 func main() {
 	// Database connection
-	DB = createDatabaseConnection()
+	r := Resource{ db : createDatabaseConnection() }
 
 	router := gin.New()
 	route := router.Group("/api/v1")
-	route.GET("/user", handleGetUsers)
+	route.GET("/user", r.handleGetUsers)
 	router.Run(":8080")
 }
 
-func handleGetUsers(c *gin.Context) {
-	users, _ := getAllUsers()
+func (r *Resource)handleGetUsers(c *gin.Context) {
+	users, _ := getAllUsers(r.db)
 	c.JSON(http.StatusOK, users)
 }
 
@@ -52,8 +53,8 @@ type User struct {
 
 type Users []User
 
-func getAllUsers() (Users, error) {
-	rows, err := DB.Query("SELECT * FROM users")
+func getAllUsers(db *sql.DB) (Users, error) {
+	rows, err := db.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}
