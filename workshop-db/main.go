@@ -21,7 +21,7 @@ func main() {
 }
 
 func handleGetUsers(c *gin.Context) {
-	// TODO Get data from database
+	// TODO :: Get data from database
 	c.JSON(http.StatusOK, Users{})
 }
 
