@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -38,6 +39,9 @@ func createDatabaseConnection() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(25)
+	db.SetConnMaxLifetime(5 * time.Minute)
 	err = db.Ping()
 	if err != nil {
 		log.Fatal("Failed to ping DB: ", err)
