@@ -2,16 +2,27 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	db := createDatabaseConnection()
-	users, _ := getAllUsers(db)
-	fmt.Printf("%+v", users)
+	// db := createDatabaseConnection()
+	// users, _ := getAllUsers(db)
+	// fmt.Printf("%+v", users)
+
+	router := gin.New()
+	route := router.Group("/api/v1")
+	route.GET("/user", handleGetUsers)
+	router.Run(":8080")
+}
+
+func handleGetUsers(c *gin.Context) {
+	// TODO Get data from database
+	c.JSON(http.StatusOK, Users{})
 }
 
 func createDatabaseConnection() *sql.DB {
