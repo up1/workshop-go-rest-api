@@ -30,7 +30,10 @@ func main() {
 	m.Use(router)
 
 	route := router.Group("/api/v1")
-	route.GET("/user", middlewares.AuthRequired(), handleGetUsers(db))
+	route.GET("/user", 
+			middlewares.AuthRequired(), 
+			middlewares.AuthenticateWithJwt(), 
+			handleGetUsers(db))
 
 	// Login API (public api)
 	login.NewLoginAPI(route)
