@@ -32,6 +32,7 @@ func main() {
 	route := router.Group("/api/v1")
 	route.GET("/user", middlewares.AuthRequired(), handleGetUsers(db))
 
+	// Login API (public api)
 	login.NewLoginAPI(route)
 
 	router.Run(":8080")
