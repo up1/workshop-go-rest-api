@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"demo"
+	"demo/middlewares"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,8 @@ func main() {
 	db := demo.CreateDatabaseConnection()
 
 	router := gin.New()
+	router.NoRoute(middlewares.NoRouteHandler())
+
 	route := router.Group("/api/v1")
 	route.GET("/user", handleGetUsers(db))
 	router.Run(":8080")
